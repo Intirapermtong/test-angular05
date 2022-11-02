@@ -1,0 +1,4 @@
+
+  <select #teams  id="inputState" class="form-select" (change)="onSelected(teams.value)">
+    <option *ngFor="let year of years" [value]="year"> {{year}}</option>
+  </select>

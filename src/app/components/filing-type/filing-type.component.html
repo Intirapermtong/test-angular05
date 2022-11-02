@@ -1,0 +1,155 @@
+
+  <div class="container" *ngIf="nextStep == 1">
+    <body class="d-flex justify-content-center align-items-center bg-light">
+      <div class="card p-3 shadow" style="width: 80%;">
+        <h6 class="text-left">1. Tax Filing Detail</h6>
+        <hr width=100% size = 3 >
+
+        <div class="pt-2">
+          <p> Type of filing <span class="textStar"> * </span>  </p>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ordinary" value="0" (change)="handleChange('0')" [(ngModel)]="sinImputarValue" >
+            <label class="form-check-label" for="inlineRadio1">Ordinary Filing <i class="bi bi-question-circle-fill"></i></label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="additional" value="1" (change)="handleChange('1')" [(ngModel)]="sinImputarValue">
+            <label class="form-check-label" for="inlineRadio2">Additional Filing <i class="bi bi-question-circle-fill"></i></label>
+          </div>
+        </div>
+
+        <div class="pt-4">
+         <p> VAT Month <span class="textStar"> * </span>  </p>
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <select  #teams id="inputState" class="form-select" (change)="onSelectedMonth(teams.value)" >
+              <option *ngFor="let months of months" [value]="months.value"> {{months.key}}</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <select #teams2  id="inputState" class="form-select" (change)="onSelectedYear(teams2.value)">
+              <option *ngFor="let year of years" [value]="year"> {{year}}</option>
+            </select>
+          </div>
+          <div class="col-4"></div>
+      </div>
+        <br/>
+        <div class='tax'>
+          <h6>2. Tax Computation</h6>
+          <span><u>View Exchange Rate</u></span>
+        </div>
+        <hr width=100% size = 3 >
+        <div class="pt-2">
+          <b> Provide total value taxable electronic service <span class="textStar"> * </span>  </b>
+        </div>
+        <div class="pt-2">
+          <div class='tax'>
+            <p>1. Total value of textable electronic service exclusive of VAT</p>
+            <span>
+              <input  class="form-control text-right" style="text-align: right;" min="0" (change)="isNumberKey($event.target)" [(ngModel)] = "saleAmount" >
+            </span>
+          </div>
+        </div>
+        <div class="pt-2">
+          <div class='tax'>
+            <p>2. Total VAT to be remitted (7% of 1.)</p>
+            <span>
+              <input  class="form-control" style="text-align: right;" min="0" [(ngModel)]="taxAmount">
+            </span>
+          </div>
+        </div>
+        <div class="pt-2" *ngIf="sinImputarValue == '1'">
+          <b> In case of late filling and payment, or additinal filling </b>
+        </div>
+        <div class="pt-2" *ngIf="sinImputarValue == '1'">
+          <div class='tax'>
+            <p>3. Surcharge</p>
+            <span>
+              <input disabled  class="form-control text-right" style="text-align: right;" min="0"  [(ngModel)] = "surcharge" >
+            </span>
+          </div>
+        </div>
+        <div class="pt-2" *ngIf="sinImputarValue == '1'">
+          <div class='tax'>
+            <p>4. Penalty</p>
+            <span>
+              <input disabled class="form-control text-right" style="text-align: right;" min="0"  [(ngModel)] = "penalty" >
+            </span>
+          </div>
+        </div>
+        <div class="pt-2" *ngIf="sinImputarValue == '1'">
+          <div class='tax'>
+            <p>5. Total amount of VAT, surcharge, and penalty to be remitted</p>
+            <span>
+              <input disabled class="form-control text-right" style="text-align: right;" min="0" [(ngModel)] = "totalsp" >
+            </span>
+          </div>
+        </div>
+      </div>
+    </body>
+  </div>
+
+
+  <div class="container" *ngIf="nextStep == 2">
+    <body class="d-flex justify-content-center align-items-center bg-light">
+      <div class="card p-3 shadow" style="width: 80%;">
+        <h6 class="text-left"> Tax Filing Detail</h6>
+        <hr width=100% size = 3 >
+        <br/>
+        <div class="pt-2">
+          <div class="form-group row">
+            <div class="col-2 align-self-center text-left"><b>Type of Filing</b></div>
+            <div class="col-3 align-self-center text-left">{{sinImputarName}}</div>
+          </div>
+        </div>
+        <div class="pt-2">
+          <div class="form-group row">
+            <div class="col-2 align-self-center text-left"><b>VAT Month</b></div>
+            <div class="col-3 align-self-center text-left">{{monthsSelectName}}  {{yearSelect}}</div>
+          </div>
+        </div>
+
+
+        <br/>
+        <h6 class="text-left"> Tax Computation</h6>
+        <hr width=100% size = 3 >
+        <br/>
+        <div class="pt-2">
+          <div class="form-group row">
+            <div class="col-6 align-self-center text-left"><b>Total value of textable electronic service exclusive of VAT</b></div>
+            <div class="col-3 align-self-center" style="text-align: right;">{{saleAmount}} THB</div>
+          </div>
+        </div>
+        <div class="pt-2">
+          <div class="form-group row">
+            <div class="col-6 align-self-center text-left"><b>Total VAT to be remitted</b></div>
+            <div class="col-3 align-self-center text-left" style="text-align: right;">{{taxAmount}} THB</div>
+          </div>
+        </div>
+        <div class="pt-2">
+          <div class="form-group row">
+            <div class="col-6 align-self-center text-left"><b>Total Amount Payable</b></div>
+            <div class="col-3 align-self-center" style="text-align: right;"><b>{{payAmount}} THB</b></div>
+          </div>
+        </div>
+
+        <br/>
+        <h6 class="text-left"> Declaration</h6>
+        <hr width=100% size = 3 >
+        <br/>
+        <div class="pt-2">
+          <p>I herety certify information given above are true and correct and agree to be bound by such information.</p>
+        </div>
+
+      </div>
+    </body>
+  </div>
+
+  <div class="container">
+    <div class="my-3 d-flex flex-row justify-content-between mx-auto" style="width: 80%;" *ngIf="nextStep == 1">
+      <button type="button" class=" btn btn-outline-dark " style="width: 20%;">Back</button>
+      <button type="button" class="btn btn-dark" style="width: 20%;" (click)="next()">Next</button>
+      <div style="width: 55%;"></div>
+    </div>
+  </div>
+

@@ -1,0 +1,25 @@
+
+
+html,
+body {
+	min-width: 100vh;
+	min-height: 100vh;
+}
+
+hr {
+  margin: 0 !important;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid;
+  opacity: .25;
+}
+
+.textStar {
+  color: red;
+}
+
+.tax {
+  display: flex;
+  justify-content:  space-between;
+  align-items: center;
+}
